@@ -5,12 +5,12 @@ package main
 const (
 	bulkQtyThreshold = 10 // units in one order
 	bulkDiscountPct  = 5
-	goldDiscountPct  = 10 // loyalty tier "gold"
-	maxDiscountPct   = 15
+	goldDiscountPct  = 12 // loyalty tier "gold"
+	maxDiscountPct   = 20
 )
 
 // DiscountCents returns the discount for an order subtotal: gold customers get
-// 10%, orders of 10+ units get 5% more, capped at 15%.
+// 12%, orders of 10+ units get 5% more, capped at 20%.
 func DiscountCents(subtotalCents int64, units int, tier string) int64 {
 	pct := 0
 	if tier == "gold" {
