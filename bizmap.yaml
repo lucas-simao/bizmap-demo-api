@@ -1,0 +1,11 @@
+# BizMap config for this repository (all keys optional).
+name: api
+database: shop          # the web repo declares the same value: shared table / collection ids
+overrides:
+  columns:
+    orders.status:
+      why: "Lifecycle: pending → paid → shipped; pending|paid → cancelled; unpaid after 30 min → expired."
+    products.stock_reserved:
+      why: "Units held by pending orders; released on cancel/expiry, turned into a stock decrement on payment."
+exclude:
+  - .bizmap               # the sibling checkout used by CI is scanned through the workspace
