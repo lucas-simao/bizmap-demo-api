@@ -1,2 +1,4 @@
 bizmap.graph.json
 /api
+# compiled binary (go build)
+/bizmap-demo-api
