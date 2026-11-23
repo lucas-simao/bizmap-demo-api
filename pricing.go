@@ -3,18 +3,22 @@ package main
 // Discount rules. Kept in one place so a pricing change shows up in BizMap
 // as "this function reaches POST /api/orders and writes orders.discount_cents".
 const (
-	bulkQtyThreshold = 10 // units in one order
-	bulkDiscountPct  = 5
-	goldDiscountPct  = 10 // loyalty tier "gold"
-	maxDiscountPct   = 15
+	bulkQtyThreshold  = 10 // units in one order
+	bulkDiscountPct   = 5
+	goldDiscountPct   = 12 // loyalty tier "gold"
+	silverDiscountPct = 5  // loyalty tier "silver"
+	maxDiscountPct    = 20
 )
 
 // DiscountCents returns the discount for an order subtotal: gold customers get
-// 10%, orders of 10+ units get 5% more, capped at 15%.
+// 12%, silver 5%, orders of 10+ units get 5% more, capped at 20%.
 func DiscountCents(subtotalCents int64, units int, tier string) int64 {
 	pct := 0
-	if tier == "gold" {
+	switch tier {
+	case "gold":
 		pct += goldDiscountPct
+	case "silver":
+		pct += silverDiscountPct
 	}
 	if units >= bulkQtyThreshold {
 		pct += bulkDiscountPct
